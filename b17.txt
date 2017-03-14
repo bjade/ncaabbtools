@@ -1,0 +1,64 @@
+1. Villanova 
+16. New Orleans 
+8. Wisconsin 
+9. Virginia Tech 
+5. Virginia 
+12. UNC Wilmington 
+4. Florida 
+13. East Tennessee St.
+6. SMU 
+11. Providence
+3. Baylor 
+14. New Mexico St. 
+7. South Carolina 
+10. Marquette 
+2. Duke 
+15. Troy 
+1. Gonzaga 
+16. South Dakota St.
+8. Northwestern 
+9. Vanderbilt 
+5. Notre Dame 
+12. Princeton 
+4. West Virginia 
+13. Bucknell 
+6. Maryland 
+11. Xavier
+3. Florida St. 
+14. Florida Gulf Coast
+7. Saint Mary's
+10. VCU 
+2. Arizona 
+15. North Dakota 
+1. Kansas 
+16. North Carolina Central
+8. Miami
+9. Michigan St. 
+5. Iowa St. 
+12. Nevada 
+4. Purdue 
+13. Vermont 
+6. Creighton 
+11. Rhode Island
+3. Oregon 
+14. Iona 
+7. Michigan 
+10. Oklahoma St. 
+2. Louisville 
+15. Jacksonville St. 
+1. North Carolina 
+16. Texas Southern
+8. Arkansas 
+9. Seton Hall 
+5. Minnesota 
+12. Middle Tennessee
+4. Butler 
+13. Winthrop 
+6. Cincinnati 
+11. Kansas St.
+3. UCLA 
+14. Kent St. 
+7. Dayton 
+10. Wichita St. 
+2. Kentucky
+15. Northern Kentucky
