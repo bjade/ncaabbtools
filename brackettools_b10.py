@@ -1,3 +1,4 @@
+
 import numpy as np
 import copy, re, random, time, datetime, pickle
 from scipy.stats import norm
@@ -22,31 +23,45 @@ def kpprob(a,b,kpd,std=11,method='cdf',floor='neutral'):
     elif method == 'log5':
         # old method using log5 formula
         return  (a - a*b) / (a + b - 2.0*a*b)
+
+def loadkp(fname):
+    keys = 'Rank        Team    Conf    W-L     AdjEM   AdjO    AdjD    AdjT    Luck    SOSAdjEM        SOSOppO SOSOppD NCSOSAdjEM'.split()
+    f = open(fname).readlines()
+    kpd = {}
+    for line in f:
+        lsp = line.split('\t')
+        if 'Strength' in lsp[0] or 'Rank' in lsp[0]: pass
+        else:
+            datanorank =  [lsp[i] for i in [0,1,2,3,4,5,7,9,11,13,15,17,19]]
+            datanorank[1] = re.split('(\d+)',datanorank[1])[0].strip()
+            teamd = dict(zip(keys,datanorank))
+            kpd[datanorank[1]] = teamd
+    return kpd
     
-def loadkp(fname,time='now'):
-    # read the kenpom data from a text file, kinda hardwired at the present time due to the team rankings in each category
-    # should consider pulling data automatically using curl or someething similar. 
-    if time == 'now':
-        keys = 'Rank	Team	Conf	W-L	AdjEM	AdjO	AdjD	AdjT	Luck	SOSAdjEM	SOSOppO	SOSOppD	NCSOSAdjEM'.split()
-        f = open(fname).readlines()
-        kpd = {}
-        for line in f:
-            lsp = line.split('\t')
-            datanorank =  [lsp[i] for i in [0,1,2,3,4,5,7,9,11,13,15,17,19]]
-            teamd = dict(zip(keys,datanorank))
-            kpd[lsp[1]] = teamd
-        return kpd
-    else:
-        keys = 'Rank	Team	Conf	W-L	AdjEM	AdjO	AdjD	AdjT	Luck	SOSAdjEM	SOSOppO	SOSOppD	NCSOSAdjEM'.split()
-        f = open(fname).readlines()
-        kpd = {}
-        for line in f:
-            lsp = line.split('\t')
-            if lsp[1].split()[-1].isdigit(): lsp[1] = ' '.join(lsp[1].split()[:-1])
-            datanorank =  [lsp[i] for i in [0,1,2,3,4,5,7,9,11,13,15,17,19]]
-            teamd = dict(zip(keys,datanorank))
-            kpd[lsp[1]] = teamd
-        return kpd
+# def loadkp(fname,time='now'):
+#     # read the kenpom data from a text file, kinda hardwired at the present time due to the team rankings in each category
+#     # should consider pulling data automatically using curl or someething similar. 
+#     if time == 'now':
+#         keys = 'Rank	Team	Conf	W-L	AdjEM	AdjO	AdjD	AdjT	Luck	SOSAdjEM	SOSOppO	SOSOppD	NCSOSAdjEM'.split()
+#         f = open(fname).readlines()
+#         kpd = {}
+#         for line in f:
+#             lsp = line.split('\t')
+#             datanorank =  [lsp[i] for i in [0,1,2,3,4,5,7,9,11,13,15,17,19]]
+#             teamd = dict(zip(keys,datanorank))
+#             kpd[lsp[1]] = teamd
+#         return kpd
+#     else:
+#         keys = 'Rank	Team	Conf	W-L	AdjEM	AdjO	AdjD	AdjT	Luck	SOSAdjEM	SOSOppO	SOSOppD	NCSOSAdjEM'.split()
+#         f = open(fname).readlines()
+#         kpd = {}
+#         for line in f:
+#             lsp = line.split('\t')
+#             if lsp[1].split()[-1].isdigit(): lsp[1] = ' '.join(lsp[1].split()[:-1])
+#             datanorank =  [lsp[i] for i in [0,1,2,3,4,5,7,9,11,13,15,17,19]]
+#             teamd = dict(zip(keys,datanorank))
+#             kpd[lsp[1]] = teamd
+#         return kpd
     
 def loadbrack(fname):
     f = open(fname).read().split('\n')
@@ -170,6 +185,7 @@ class bsim:
             wind[team] = winp
             windat.append((team, np.sum(winp)))
         windat.sort(key=lambda x: x[1])
+        print '{0:20}\t{1}'.format('round', ' '.join(['{0:8}'.format(val) for val in [64,32,16,8,4,2]]))
         for val in list(reversed(windat)):
             team = val[0]
             print '{0:20}\t{1}'.format(team, ' '.join(['{0:8.5f}'.format(val) for val in wind[team]]))
