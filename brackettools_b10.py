@@ -1,4 +1,3 @@
-
 import numpy as np
 import copy, re, random, time, datetime, pickle
 from scipy.stats import norm
@@ -166,7 +165,6 @@ class bsim:
     
     def simsum(self):
         windat, wind = [], {}
-        
         for team in sorted(self.wind.keys()):
             winp = 100*np.array(self.wind[team])/float(len(self.finalbs))
             wind[team] = winp
@@ -175,6 +173,7 @@ class bsim:
         for val in list(reversed(windat)):
             team = val[0]
             print '{0:20}\t{1}'.format(team, ' '.join(['{0:8.5f}'.format(val) for val in wind[team]]))
+        return windat, wind 
 
 def seedd(bracket):
     d = {}
@@ -183,55 +182,5 @@ def seedd(bracket):
         for j in range(0,16):
             d[bracket[0][i+j]] = bracketorder[j]
     return d
-
-# kpd = readkp('kenpom_2016.txt')
-# bracket, teamseedd = readbracket('bracket_2017.txt')
-# 
-# testbracket = copy.deepcopy(bracket)
-# bracketpredict(testbracket, teamseedd, method='seed')
-# mybracket = ncaabracket(testbracket)
-# 
-# print datetime.datetime.now().time()
-# for i in range(0,100000): 
-#     predictedbracket = copy.deepcopy(bracket)
-#     bracketpredict(predictedbracket, teamseedd, method='random')
-#     mybracket.calcscore(predictedbracket,teamseedd)
-# 
-# print datetime.datetime.now().time()
-# print np.mean(np.array(mybracket.scores))
-
-# full bracket simulation
-# d = loadkp('kp16.txt', time='past')  
-# b = [loadbrack('b16.txt')]
-# teamseedd = seedd(b)
-# 
-# kpb = bsim(b,d)
-# t0 = time.time()
-# for i in range(0,10000):
-#     if i%1000 == 0:
-#         print i
-#     kpb.sim()
-# print time.time() - t0
-# 
-# kpb.simsum()
-
-
-b10b = [['Penn St.', 'Nebraska', 'Rutgers', 'Ohio St.'],
-['Illinois','Michigan',None,'Michigan St.', 'Indiana', 'Iowa',None,'Northwestern'],
-[None, 'Purdue',None,'Minnesota',None,'Wisconsin',None,'Maryland']]
-
-d = loadkp('kp17.txt')
-b = b10b
-# teamseedd = seedd(b)
-
-kpb = bsim(b,d)
-for i in range(0,50000):
-    if i%1000 == 0:
-        print i
-    kpb.sim()
-
-kpb.simsum()
-
-
 
 
